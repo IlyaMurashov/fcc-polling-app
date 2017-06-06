@@ -21,7 +21,7 @@ app.use(session({
   secret: 'pew pew',
   resave: false,
   saveUninitialized: true,
-  name: 'polling-id'
+  name: process.env.SESSION_SECRET
 }));
 
 app.use(passport.initialize());
