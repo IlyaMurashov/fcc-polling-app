@@ -2,6 +2,8 @@
 
 require('./index.html');
 
+require('./public/css/main.css');
+
 const Elm = require('./Main.elm');
 const mountNode = document.getElementById('main');
 

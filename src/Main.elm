@@ -1,6 +1,7 @@
 module Main exposing (..)
 
 import Html exposing (Html, div, text, program)
+import Pages.Login as Login exposing (view, Msg)
 
 
 -- MAIN
@@ -20,13 +21,19 @@ main =
 -- MODEL
 
 
+type Page
+    = Login
+
+
 type alias Model =
-    String
+    { page : Page
+    , debugStatus : String
+    }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( "Hello", Cmd.none )
+    ( Model Login "", Cmd.none )
 
 
 
@@ -34,7 +41,7 @@ init =
 
 
 type Msg
-    = NoOp
+    = LoginMsg Login.Msg
 
 
 
@@ -43,8 +50,9 @@ type Msg
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ text model ]
+    case model.page of
+        Login ->
+            Login.view |> Html.map LoginMsg
 
 
 
@@ -54,8 +62,8 @@ view model =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        NoOp ->
-            ( model, Cmd.none )
+        LoginMsg msg ->
+            ( { model | debugStatus = "Logged in" }, Cmd.none )
 
 
 

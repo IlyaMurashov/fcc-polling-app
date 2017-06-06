@@ -3,3 +3,6 @@
 node_modules/
 .eslintrc
 .env
+dist
+
+elm-stuff
