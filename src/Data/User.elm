@@ -5,7 +5,7 @@ import Json.Decode.Pipeline exposing (decode, optionalAt, required, requiredAt)
 
 
 type alias User =
-    { id : String
+    { id : Int
     , displayName : String
     , username : String
     , publicRepos : Int
@@ -16,7 +16,7 @@ type alias User =
 decoder : Decoder User
 decoder =
     decode User
-        |> requiredAt [ "github", "id" ] string
+        |> requiredAt [ "github", "id" ] int
         |> optionalAt [ "github", "displayName" ] string ""
         |> requiredAt [ "github", "username" ] string
         |> requiredAt [ "github", "publicRepos" ] int
