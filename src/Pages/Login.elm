@@ -23,7 +23,7 @@ view =
         , br [] []
         , p [ class "clementine-text" ]
             [ text "Clementine.js" ]
-        , a [ onClick LoginMsg ]
+        , a [ href "/auth/github" ]
             [ div [ class "btn", id "login-btn" ]
                 [ img [ alt "github logo", src "/public/img/github_32px.png" ] []
                 , p [] [ text "LOGIN WITH GITHUB" ]

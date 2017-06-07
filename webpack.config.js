@@ -1,3 +1,4 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require("path");
 
 module.exports = {
@@ -38,11 +39,21 @@ module.exports = {
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader',
-      },
+      }
     ],
 
     noParse: /\.elm$/,
   },
+
+
+  plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: 'src/public/img',
+        to: 'public/img'
+      }
+    ])
+  ],
 
   devServer: {
     inline: true,

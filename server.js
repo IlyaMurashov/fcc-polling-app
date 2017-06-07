@@ -16,12 +16,13 @@ mongoose.Promise = global.Promise;
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/common', express.static(process.cwd() + '/app/common'));
+app.use('/', express.static(process.cwd() + '/dist'));
 
 app.use(session({
   secret: 'pew pew',
   resave: false,
   saveUninitialized: true,
-  name: process.env.SESSION_SECRET
+  name: 'id'
 }));
 
 app.use(passport.initialize());

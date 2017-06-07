@@ -3,6 +3,8 @@
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 
+var mockApi = require(path + '/app/mockApi.js');
+
 module.exports = function (app, passport) {
 
 	function isLoggedIn (req, res, next) {
@@ -15,9 +17,19 @@ module.exports = function (app, passport) {
 
 	var clickHandler = new ClickHandler();
 
-	app.route('/')
-		.get(isLoggedIn, function (req, res) {
-			res.sendFile(path + '/public/index.html');
+	// app.route('/')
+	// 	.get((req, res) => {
+	// 		res.sendFile(path + '/dist')
+	// 	});
+
+	// app.route('/')
+	// 	.get(isLoggedIn, function (req, res) {
+	// 		res.sendFile(path + '/public/index.html');
+	// 	});
+
+	app.route('/polls')
+		.get(function (req, res) {
+			res.json(mockApi.getPolls());
 		});
 
 	app.route('/login')

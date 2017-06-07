@@ -1,7 +1,7 @@
-module Data.User exposing (..)
+module Data.User exposing (User, decoder)
 
 import Json.Decode exposing (Decoder, int, string)
-import Json.Decode.Pipeline exposing (decode, optionalAt, required, requiredAt)
+import Json.Decode.Pipeline exposing (decode, optionalAt, requiredAt)
 
 
 type alias User =
