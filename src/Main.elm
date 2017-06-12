@@ -2,9 +2,11 @@ module Main exposing (..)
 
 import Data.Poll exposing (Poll)
 import Html exposing (Html, div, text, program)
+import Navigation exposing (Location)
 import Pages.Login as Login exposing (view, Msg)
 import RemoteData exposing (RemoteData, WebData)
-import Pages.Home exposing (view)
+import Pages.Home as Home exposing (view)
+import Router exposing (Route(..), parseLocation)
 
 
 -- MAIN
@@ -12,7 +14,7 @@ import Pages.Home exposing (view)
 
 main : Program Never Model Msg
 main =
-    program
+    Navigation.program OnLocationChange
         { init = init
         , view = view
         , update = update
@@ -24,18 +26,13 @@ main =
 -- MODEL
 
 
-type Page
-    = Login
-
-
 type alias Model =
-    { latestPolls : WebData (List Poll)
-    }
+    { route : Route }
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( Model RemoteData.NotAsked, Cmd.none )
+init : Location -> ( Model, Cmd Msg )
+init location =
+    ( { route = parseLocation location }, Cmd.none )
 
 
 
@@ -44,6 +41,7 @@ init =
 
 type Msg
     = LoginMsg Login.Msg
+    | OnLocationChange Location
 
 
 
@@ -52,7 +50,15 @@ type Msg
 
 view : Model -> Html Msg
 view model =
-    Pages.Home.view
+    case model.route of
+        NotFound ->
+            Html.text "404"
+
+        HomeRoute ->
+            Home.view
+
+        LoginRoute ->
+            Html.map LoginMsg Login.view
 
 
 
@@ -64,6 +70,13 @@ update msg model =
     case msg of
         LoginMsg msg ->
             ( model, Cmd.none )
+
+        OnLocationChange location ->
+            let
+                newRoute =
+                    parseLocation location
+            in
+                ( { model | route = newRoute }, Cmd.none )
 
 
 
