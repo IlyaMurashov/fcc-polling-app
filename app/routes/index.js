@@ -17,19 +17,9 @@ module.exports = function (app, passport) {
 
 	var clickHandler = new ClickHandler();
 
-	// app.route('/')
-	// 	.get((req, res) => {
-	// 		res.sendFile(path + '/dist')
-	// 	});
-
-	// app.route('/')
-	// 	.get(isLoggedIn, function (req, res) {
-	// 		res.sendFile(path + '/public/index.html');
-	// 	});
-
 	app.route('/polls')
 		.get(function (req, res) {
-			res.json(mockApi.getPolls());
+			setTimeout(() => res.json(mockApi.getPolls()), 1000);
 		});
 
 	app.route('/login')

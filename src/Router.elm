@@ -14,6 +14,7 @@ matchers : Parser (Route -> a) a
 matchers =
     oneOf
         [ map HomeRoute top
+        , map HomeRoute (s "home")
         , map LoginRoute (s "login")
         ]
 
